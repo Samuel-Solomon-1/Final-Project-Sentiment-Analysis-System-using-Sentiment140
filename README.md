@@ -29,19 +29,16 @@ The project is structured in phases:
 
 ```plaintext
 .
-├── data/                           # Raw and cleaned datasets
-├── notebooks/                      # Jupyter/Colab notebooks for EDA and modeling
-│   ├── task1_data_exploration.ipynb
-│   ├── task2_data_preprocessing.ipynb
-│   ├── task3_model_training.ipynb
-│   └── task4_model_saving.ipynb
-├── model/                         # Saved models and vectorizers
+├── data/       # datasets
+├── notebooks/  # Jupyter notebooks
+│   ├── Final Project: Sentiment Analysis System using Sentiment140.ipynb
+├── model/       # Saved models
 │   ├── logistic_regression_model.joblib
 │   └── tfidf_vectorizer.joblib
-├── api/                           # Flask API code (to be added)
-├── Dockerfile                     # Docker container definition (to be added)
-├── .github/workflows/             # CI/CD workflows (to be added)
-└── README.md                      # Project overview and instructions
+├── api/        # Flask API code
+├── Dockerfile  # Docker definition
+├── .github/workflows/ # Workflows
+└── README.md   # Project overview
 ```
 
 ---
