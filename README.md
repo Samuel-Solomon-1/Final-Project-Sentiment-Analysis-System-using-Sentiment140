@@ -29,16 +29,16 @@ The project is structured in phases:
 
 ```plaintext
 .
-├── data/       # datasets
-├── notebooks/  # Jupyter notebooks
+├── data/                    # datasets
+├── notebooks/               # Jupyter notebooks
 │   ├── Final Project: Sentiment Analysis System using Sentiment140.ipynb
-├── model/       # Saved models
+├── model/                   # Saved models
 │   ├── logistic_regression_model.joblib
 │   └── tfidf_vectorizer.joblib
-├── api/        # Flask API code
-├── Dockerfile  # Docker definition
-├── .github/workflows/ # Workflows
-└── README.md   # Project overview
+├── api/                     # Flask API code
+├── Dockerfile               # Docker definition
+├── .github/workflows/       # Workflows
+└── README.md                # Project overview
 ```
 
 ---
