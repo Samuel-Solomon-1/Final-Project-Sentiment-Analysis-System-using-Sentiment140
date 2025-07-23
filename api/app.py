@@ -1,12 +1,13 @@
-import joblib
 from flask import Flask, request, jsonify
+import joblib
 import os
 
 app = Flask(__name__)
 
-# Updated paths and extensions
-model_path = os.path.join(os.path.dirname(__file__), '../model/sentiment_model.joblib')
-vectorizer_path = os.path.join(os.path.dirname(__file__), '../model/vectorizer.joblib')
+# Paths
+base_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(base_dir, '..', 'model', 'logistic_regression_model.joblib')
+vectorizer_path = os.path.join(base_dir, '..', 'model', 'tfidf_vectorizer.joblib')
 
 # Load model and vectorizer
 with open(model_path, 'rb') as f:
@@ -16,19 +17,23 @@ with open(vectorizer_path, 'rb') as f:
     vectorizer = joblib.load(f)
 
 @app.route('/')
-def index():
-    return "Sentiment Analysis API is running!"
+def home():
+    return 'Sentiment Analysis API is running!'
 
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
+
     if 'text' not in data:
-        return jsonify({'error': 'Missing "text" in request body'}), 400
+        return jsonify({'error': 'Missing "text" field'}), 400
 
     text = data['text']
-    features = vectorizer.transform([text])
-    prediction = model.predict(features)[0]
-    return jsonify({'text': text, 'prediction': int(prediction)})
+    text_vector = vectorizer.transform([text])
+    prediction = model.predict(text_vector)[0]
+
+    sentiment = 'positive' if prediction == 4 else 'negative'
+
+    return jsonify({'sentiment': sentiment})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5000)
