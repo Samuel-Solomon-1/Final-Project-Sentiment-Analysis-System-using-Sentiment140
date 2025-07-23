@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # Enables manual trigger from GitHub UI
 
 env:
   IMAGE_NAME: ifaol/final_project_samuel_1
