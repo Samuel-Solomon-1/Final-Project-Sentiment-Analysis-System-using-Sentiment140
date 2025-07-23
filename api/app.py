@@ -29,11 +29,9 @@ def predict():
 
     text = data['text']
     text_vector = vectorizer.transform([text])
-    prediction = model.predict(text_vector)[0]
+    prediction = model.predict(text_vector)[0]  # prediction is already a string like "positive" or "negative"
 
-    sentiment = 'positive' if prediction == 4 else 'negative'
-
-    return jsonify({'sentiment': sentiment})
+    return jsonify({'sentiment': prediction})
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
