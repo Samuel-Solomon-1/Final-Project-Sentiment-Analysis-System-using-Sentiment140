@@ -1,28 +1,28 @@
-
 from flask import Flask, request, jsonify
-import pickle
+import joblib
+import os
 
-# Load trained model
-with open("sentiment_model.pkl", "rb") as f:
-    model = pickle.load(f)
-
-# Create Flask app
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return "Welcome to the Sentiment Analysis API!"
+# Load model and vectorizer from the model directory
+model_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'logistic_regression_model.joblib')
+vectorizer_path = os.path.join(os.path.dirname(__file__), '..', 'model', 'tfidf_vectorizer.joblib')
 
-@app.route("/predict", methods=["POST"])
+model = joblib.load(model_path)
+vectorizer = joblib.load(vectorizer_path)
+
+@app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
-    if not data or "text" not in data:
-        return jsonify({"error": "No text provided"}), 400
+        tweet = data.get('tweet')
+            
+                if not tweet:
+                        return jsonify({'error': 'No tweet provided'}), 400
 
-    text = data["text"]
-    prediction = model.predict([text])[0]
+                            features = vectorizer.transform([tweet])
+                                prediction = model.predict(features)[0]
+                                    
+                                        return jsonify({'tweet': tweet, 'sentiment': prediction})
 
-    return jsonify({"text": text, "sentiment": prediction})
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+                                        if __name__ == '__main__':
+                                            app.run(debug=True, host='0.0.0.0')
